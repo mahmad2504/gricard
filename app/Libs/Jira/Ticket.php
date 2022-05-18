@@ -277,15 +277,46 @@ class Ticket
 				{
 					foreach($history->items as $item)
 					{
+						if($item->field == "Story Points")
+						{
+							$obj =  new \StdClass();
+							$created= new Carbon($history->created);
+							$this->SetTimeZone($created);
+							$obj->type="Story Points";
+							$obj->created = $created->getTimestamp();
+							$obj->from_sp=$item->fromString;
+							$obj->to_sp = $item->toString;
+							$transitions[] = $obj;
+						}
 						if($item->field == "status")
 						{
 							$obj =  new \StdClass();
 							$created= new Carbon($history->created);
 							$this->SetTimeZone($created);
+							$obj->type="status";
 							$obj->created = $created->getTimestamp();
 							$obj->from = $item->fromString;
 							$obj->to = $item->toString;
 							$transitions[] = $obj;
+						}
+						if($item->field == "Sprint")
+						{
+							$obj =  new \StdClass();
+							$obj->type="sprint";
+							$created= new Carbon($history->created);
+							
+							$from=explode(",",$item->from);
+							
+							$to=explode(",",$item->to);
+							$obj->from=trim($from[count($from)-1]);
+							
+							$obj->to=trim($to[count($to)-1]);
+							
+							$obj->created = $created->getTimestamp();
+							$obj->created_str=$history->created;
+							$transitions[] = $obj;
+							//dump($item->field);
+							//dump($from."-->".$to);
 						}
 					}
 				}

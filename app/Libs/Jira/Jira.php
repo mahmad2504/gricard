@@ -77,6 +77,15 @@ class Jira
 		]);
 		dump($issues);
 	}
+	public static function GetSprints($boardid,$state)
+	{
+		
+		$sprints = self::$boardService->getBoardSprints($boardid, [
+			'state' => $state]);
+		
+	
+		return $sprints;
+	}
 	public static function AddAttachement($issueKey,$attachements)
 	{
 		return self::$issueService->addAttachments($issueKey,$attachements);
@@ -112,7 +121,7 @@ class Jira
 	}
 	public static function GetSprintTasks($sprintid)
 	{
-		return self::$sprintService->getSprintIssues($sprintid,['fields'=>'key']);
+		return self::$sprintService->getSprintIssues($sprintid,['fields'=>'key','maxResults' => 1000,]);
 	}
 	public static function GetFieldService()
 	{

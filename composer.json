@@ -10,7 +10,8 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-		"lesstif/php-jira-rest-client": "^2.0"
+        "lesstif/php-jira-rest-client": "^2.0",
+        "phpoffice/phpspreadsheet": "^1.23"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
